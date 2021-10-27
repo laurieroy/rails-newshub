@@ -13,6 +13,9 @@ jobs:
       db:
         image: postgres:13-alpine
         ports: ['5432:5432']
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -46,17 +49,18 @@ jobs:
         run: |
           bundle install --jobs 4 --retry 3
       
-      # - name: Prepare Database
-      #   run: |
-      #     bundle exec rails db:prepare
+      - name: Prepare Database
+        run: |
+          bundle exec rails db:prepare
+        env: NEWSHUB_DATABASE_PASSWORD: postgres
 
       - name: Run Tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
-          PG_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          # PG_USER: postgres
+          NEWSHUB_DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:test:prepare
           bundle exec rake
