@@ -1,3 +1,5 @@
 # NewsHub
 
-RSpec 3 following Tom Katdwill's youtube series
+RSpec 3 following Tom Kadwill's youtube series
+
+Testing a GH Action 

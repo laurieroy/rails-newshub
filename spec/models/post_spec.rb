@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Post, type: :model do
 	subject {
-		Post.new(title: 'A post')
+		described_class.new(title: 'A post')
 	}
 	it 'is valid with valid attributes' do
 
