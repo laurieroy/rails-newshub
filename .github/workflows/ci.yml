@@ -47,9 +47,6 @@ jobs:
         run: |
           bundle install --jobs 4 --retry 3
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Prepare Database
         run: |
           bundle exec rails db:prepare
