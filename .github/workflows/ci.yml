@@ -10,10 +10,12 @@ jobs:
       POSTGRES_HOST: localhost
     services:
       db:
-        image: postgres:13-alpine
+        image: postgres:13
         ports: ["5432:5432"]
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: newshub_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -56,19 +58,14 @@ jobs:
           PG_HOST: localhost
           PG_USER: postgres
           PG_PASSWORD: password
-          PG_DATABASE: db
         run: |
           bundle exec rails db:setup
 
       - name: Run Tests
         env:
-          DATABASE_URL: postgres://postgres:password@localhost:5432/test
-          RAILS_ENV: test
+          # DATABASE_URL: postgres://postgres:password@localhost:5432/test
           # RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
-          PG_HOST: localhost
-          PG_USER: postgres
-          PG_PASSWORD: password
-          PG_DATABASE: db
+          # PG_DATABASE: db
         continue-on-error: true
         run: |
           bundle exec rspec
