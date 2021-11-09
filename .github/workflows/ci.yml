@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: password
       RAILS_ENV: test
       POSTGRES_HOST: localhost
     services:
@@ -13,10 +13,8 @@ jobs:
         image: postgres:13-alpine
         ports: ["5432:5432"]
         env:
-          POSTGRES_USERNAME: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: 127.0.0.1
-          
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password       
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -59,13 +57,13 @@ jobs:
 
       - name: Run Tests
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/test
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
           PGHOST: localhost
           PGUSER: postgres
-          PGPASSWORD: postgres
+          PGPASSWORD: password
           PGDB: newshub
         continue-on-error: true
         run: |
-          bundle exec rspec ./spec
+          bundle exec rspec
