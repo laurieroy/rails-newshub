@@ -13,6 +13,7 @@ jobs:
     services:
       db:
         image: postgres:13-alpine
+        restart: always
         ports: ['5432:5432']
         env:
           PG_USERNAME: postgres
@@ -26,8 +27,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -57,8 +58,10 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
-          # PG_USER: postgres
-          # NEWSHUB_DATABASE_PASSWORD: postgres
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGDB: newshub
         continue-on-error: true
         run: |
           bundle exec rails rspec
