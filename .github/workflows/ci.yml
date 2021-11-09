@@ -6,9 +6,9 @@ jobs:
     strategy:
       # fail-fast: false
     env:
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: postgres
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       RAILS_ENV: test
     services:
       db:
@@ -16,8 +16,8 @@ jobs:
         # restart: always
         ports: ["5432:5432"]
         env:
-          PG_USERNAME: postgres
-          PG_PASSWORD: postgres
+          POSTGRES_USERNAME: postgres
+          POSTGRES__PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -64,4 +64,4 @@ jobs:
           PGDB: newshub
         continue-on-error: true
         run: |
-          bundle exec rails rspec
+          bundle exec rspec ./spec
