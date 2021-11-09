@@ -3,6 +3,13 @@ on: [ push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    env:
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      RAILS_ENV: test
     services:
       db:
         image: postgres:13-alpine
@@ -52,5 +59,6 @@ jobs:
           # RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
           # PG_USER: postgres
           # NEWSHUB_DATABASE_PASSWORD: postgres
+        continue-on-error: true
         run: |
           bundle exec rails rspec
