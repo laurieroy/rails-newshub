@@ -6,7 +6,8 @@ jobs:
     env:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: newshub_test
+      RAILS_ENV: test
+      POSTGRES_HOST: localhost
     services:
       db:
         image: postgres:13-alpine
@@ -15,7 +16,7 @@ jobs:
           POSTGRES_USERNAME: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_HOST: 127.0.0.1
-          RAILS_ENV: test
+          
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
