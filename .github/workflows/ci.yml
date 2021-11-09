@@ -17,7 +17,10 @@ jobs:
           --health-retries 5
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -25,7 +28,7 @@ jobs:
           bundler-cache: true
       
       - name: Add yarn
-      - uses: Borales/actions-yarn@v2.3.0
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
 
