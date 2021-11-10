@@ -15,7 +15,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: newshub_test
+          POSTGRES_DB: newshub
           RAILS_ENV: test
           POSTGRES_HOST: localhost
         options: >-
@@ -57,10 +57,8 @@ jobs:
       - name: Prepare Database
         env:
           RAILS_ENV: test
-          POSTGRES_HOST: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: newshub_test
         run: |
           bundle exec rails db:setup
 
